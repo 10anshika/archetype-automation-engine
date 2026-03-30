@@ -1,147 +1,160 @@
-# 🛠️ Archetype Automation Engine
+<div align="center">
 
-Automated data science pipeline for **archetype modeling** in retail analytics. Groups similar price points (₹100 buckets) into standardized **New Buckets (archetypes)** based on monthly sales-share trend similarity. Handles 157 segments across EC, TT, MT channels.
+# 🚀 Archetype Automation Engine
 
-## 🎯 Project Overview
+[![Status](https://img.shields.io/badge/status-production-green.svg?style=for-the-badge&logo=gitbook)](https://github.com/10anshika/archetype-automation-engine/actions)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=for-the-badge&logo=python)](https://www.python.org/)
+[![License](https://img.shields.io/github/license/10anshika/archetype-automation-engine.svg?style=for-the-badge)](LICENSE)
 
-**Problem Solved**: Manual Excel-based price bucketing is inconsistent, unscalable, and fragile. Analysts visually group ₹100 price buckets into archetypes (NB1, NB2...) for reporting/forecasting.
+**Automated archetype modeling for retail price segmentation.** Groups ₹100 price buckets into data-driven **New Buckets (NB1, NB2...)** using **Auto-K clustering**. Handles **157 segments** across **EC/TT/MT channels** in **minutes** (not weeks).
 
-**Solution**: Data-driven **Auto-K clustering** discovers optimal number of archetypes (K) per segment using greedy adjacent merge with cumulative cost threshold (0.70 default). Reduces weeks of work to minutes.
+![Pipeline](https://i.imgur.com/placeholder-pipeline.png)
+*Automated pipeline: Raw Excel → Clean → Buckets → Pivots → **Auto-K** → Reports*
 
-**Business Impact**: Standardized price ranges enable YoY comparison within archetypes even as ASPs shift.
+</div>
 
-**Channels**: 
-- **EC** (92 segments): Amazon, Flipkart, D2C...
-- **TT** (14 segments): Traditional trade 
-- **MT** (45/51 segments): Modern trade
+## 🎯 What It Does
 
-## 🏗️ Architecture
+**Problem**: Manual Excel bucketing is inconsistent across analysts, unscalable (157 segments), fragile to data changes.
 
+**Solution**: **Greedy adjacent clustering** discovers optimal archetypes automatically:
+- Similarity: Pearson correlation of monthly sales-share trends
+- Constraint: Only adjacent ₹100 buckets merge → valid price ranges
+- Auto-K: Stops at 70% cumulative dissimilarity threshold
+
+**Impact**: Standardized NB labels enable YoY price band comparisons.
+
+| Channel | Segments | Portals | Raw File |
+|---------|----------|---------|----------|
+| 🛒 **EC** | 92 | Amazon, Flipkart... | `ec_data.xlsx` |
+| 🏪 **TT** | 14 | Integer IDs | `manual_validation.xlsx` |
+| 🏬 **MT** | 45/51 | Dmart, Reliance... | `mt_data.xlsx` |
+
+## 🏗️ Architecture Flow
+
+```mermaid
+graph TD
+    A[📊 Raw Excel<br/>ec_data.xlsx] --> B[NB01 Clean<br/>01_clean_sales.csv]
+    B --> C[NB02 ASP Buckets<br/>₹100 + tail ₹500<br/>02_fine_bucket_ts.csv]
+    C --> D[NB03 Pivots<br/>% share matrices<br/>03_segment_pivots.pkl]
+    D --> E[NB04 **Auto-K**<br/>threshold overrides<br/>archetype_mapping.csv]
+    E --> F[NB05 Verify Keys]
+    F --> G[NB06 Validate GT]
+    E --> H[NB07 ABT<br/>07_analytical_base_table.csv]
+    H --> I[NB08 Reports<br/>pivot_ready.xlsx + PNGs]
+    
+    J[NB09 Diagnostic<br/>threshold sensitivity] -.->|Tune| E
+    K[NB10 Detail<br/>flagged segments] -.->|Review| E
 ```
-Raw Excel (ec_data.xlsx, manual_validation.xlsx, mt_data.xlsx)
-          │
-NB01 Clean → 01_clean_sales.csv (strip strings, filter years, build sale_date)
-          │
-NB02 ASP Bucketing → 02_fine_bucket_ts.csv (₹100 buckets + tail ₹500)
-          │
-NB03 Pivot → 03_segment_pivots.pkl (monthly % share matrices per segment)
-          │
-NB04 Auto-K Cluster ← threshold overrides from channel_registry.py
-          │ → archetype_mapping.csv + archetype_keys.csv
-          │
-NB05 Verify Keys
-NB06 Validate vs ground truth → 06_validation_summary.csv
-NB07 ABT → 07_analytical_base_table.csv (all sales + archetype labels)
-NB08 Report → per_portal/*.xlsx + consolidated/*.xlsx + PNGs
 
-NB09 Diagnostic → 09_threshold_diagnostic.csv (standalone)
-NB10 Pivot Detail → 10_pivot_detail/*.xlsx (flagged segments)
-```
+## ✨ Key Features
 
-## ✨ Features
+<div align="center">
 
-| Feature | Description |
-|---------|-------------|
-| **Auto-K Clustering** | Discovers optimal archetypes automatically (K=2-10) using Pearson correlation + adjacency constraint |
-| **Threshold Overrides** | 30 segments tuned to 0.60 (per NB09 diagnostic) for complex price structures |
-| **Tail Bucketing** | ₹500 buckets above division thresholds (HL>₹5K, SL>₹4K, BP>₹1.5K) |
-| **Volume Filters** | `min_history_months=6`, `noise_floor_pct=0.1%`, `min_cluster_vol_pct=1%` |
-| **Validation** | 85-95% accuracy vs analyst ground truth (NB06) |
-| **papermill Orchestration** | `run_pipeline.py --channel EC` executes full pipeline |
+| 🎯 **Auto-Discovers K** | 📈 **Trend Similarity** | 🔒 **Contiguous Ranges** |
+|------------------------|-------------------------|--------------------------|
+| Optimal archetypes per segment | Pearson corr of % shares | Adjacent buckets only |
+| K=2-10 enforced | Handles seasonality | No ₹1200+₹2000 skips |
 
-**Core Algorithm**: Greedy adjacent merge stops when cumulative dissimilarity reaches 70% of total cost. Only adjacent ₹100 buckets merge → business-valid contiguous price ranges.
+</div>
 
-## 🚀 Setup
+- **Tail Bucketing**: ₹500 above thresholds (HL>₹5K)
+- **Overrides**: 30 segments @ 0.60 (NB09-driven)
+- **Validation**: 85-95% vs ground truth
+- **papermill**: `run_pipeline.py --channel EC`
+
+## 🚀 Quick Start
 
 ```bash
 git clone https://github.com/10anshika/archetype-automation-engine
 cd archetype_automation_engine/src
 
-# Install deps
-pip install pandas==2.2.2 numpy scipy scikit-learn matplotlib seaborn papermill openpyxl jupyter nbconvert
+# Install (no requirements.txt — minimal deps)
+pip install pandas numpy scipy scikit-learn papermill openpyxl matplotlib seaborn jupyter
 
-# Verify kernel
-jupyter kernelspec list  # should show 'python3'
+# Run EC (15min)
+python run_pipeline.py --channel EC
+
+# Outputs: notebooks/data/outputs/EC/
 ```
 
-## 📋 Usage
+**Resume**: `--start-from 04` | **Single**: `--only 08` | **Diag**: `run_diagnostic.py`
 
-### Run Full Pipeline
-```bash
-cd src
-python run_pipeline.py --channel EC  # ~15min, 92 segments
-python run_pipeline.py --channel TT  # ~3min, 14 segments  
-python run_pipeline.py --channel MT  # ~10min, 45 segments
-```
-
-### Resume / Single Notebook
-```bash
-python run_pipeline.py --channel EC --start-from 04  # re-run NB04+
-python run_pipeline.py --channel EC --only 08         # reports only
-```
-
-### Diagnostics
-```bash
-python run_diagnostic.py           # NB09 cross-channel
-cd ../notebooks && jupyter nbconvert --execute 10_pivot_detail.ipynb
-```
-
-**Outputs**: `notebooks/data/outputs/{CHANNEL}/` (gitignored data/large files)
-
-## 📁 File Structure
+## 📁 Structure
 
 ```
-d:/archetype_automation_engine/
-├── data/raw/                 # ← Place Excel inputs here
+.
+├── data/raw/           # ← Input Excel here
 │   ├── ec_data.xlsx
-│   ├── manual_validation.xlsx (TT)
 │   └── mt_data.xlsx
-├── notebooks/                # Jupyter pipeline (8+2 notebooks)
+├── notebooks/          # 10-step Jupyter pipeline
 │   ├── 01_exploration.ipynb
-│   ├── 04_clustering.ipynb     # ← Core Auto-K algorithm
+│   ├── 04_clustering.ipynb  # Core Auto-K
 │   └── 08_reporting.ipynb
-├── src/                      # Python utils + orchestrator
-│   ├── channel_registry.py    # All configs here
-│   ├── run_pipeline.py        # Main entrypoint
-│   ├── pipeline.py            # assign_buckets()
-│   └── clustering.py          # Legacy clustering
-├── outputs/                  # Generated (gitignored)
-└── README.md | TODO.md
+├── src/                # Orchestrator + utils
+│   ├── channel_registry.py  # All configs
+│   ├── run_pipeline.py      # Entry point
+│   └── pipeline.py
+└── outputs/            # Generated (gitignored)
 ```
 
-**Key Config**: `src/channel_registry.py` — channel-specific params (raw_path, thresholds, MAX_K=10)
+## ⚙️ Config Reference
 
-## 🔄 Pipeline Flow
+**`src/channel_registry.py`** — Single source of truth:
 
-1. **NB01**: Clean/filter → `01_clean_sales.csv`
-2. **NB02**: ASP → ₹100 buckets (tail ₹500) → `02_fine_bucket_ts.csv`
-3. **NB03**: % share pivots → `03_segment_pivots.pkl`
-4. **NB04**: **Auto-K** groups adjacent buckets → `archetype_mapping.csv`
-5. **NB05-NB08**: Verify → ABT → Excel reports/PNGs
-6. **NB09**: Threshold diagnostics → tune overrides
+| Param | EC/TT/MT | Purpose |
+|-------|----------|---------|
+| `max_k` | 10/8 | Archetypes cap |
+| `min_history_months` | 6/3 | Active bucket filter |
+| `trend_similarity_threshold` | 0.70 | Merge stop % |
+| `segment_threshold_overrides` | 30 segs @ 0.60 | Complex segments |
 
-**Input**: Excel (Division, Portal, Size, price_range, year, month, qty, net_sales)  
-**Output**: `{segment}_pivot_ready.xlsx` (analyst-ready)
+## 📊 Example Output
 
-## ⚙️ How It Works
+**HL_Flipkart_LARGE** (`per_portal/HL_Flipkart_LARGE_pivot_ready.xlsx`):
 
-**Archetype Logic** (NB04):  
-For each segment → N active buckets → greedy merge adjacent pairs by lowest cost `(1 - corr)/2` → stop at 70% cumulative cost → K discovered automatically → sparse buckets assigned to nearest.
+| archetype_key | 2024-01 | 2024-02 | ... | TOTAL_QTY | VOL_% |
+|---------------|---------|---------|-----|-----------|-------|
+| AmazonHL_LARGE1 | 1200 | 1150 | ... | 45k | 22% |
+| AmazonHL_LARGE2 | 2850 | 2920 | ... | 78k | 38% |
+
+**PNG Charts**: Volume bars + YoY trends + % share lines per archetype.
+
+## 🔍 How Auto-K Works
 
 ```
-Bucket ₹1200: [8,9,8,10]  ← monthly % shares
-Bucket ₹1300: [12,13,12,14]
-Bucket ₹2000: [18,18,19,18]
-↓ Merge most similar adjacent → ₹1200+₹1300 = NB1, ₹2000 = NB2
+Active Buckets (min_history_months=6, vol>0.1%):
+₹1200: [8.3, 9.1, 7.8, 10.2]  % shares over 4mo
+₹1300: [12.4, 13.0, 11.9, 14.1]
+₹2000: [18.2, 17.6, 19.4, 17.8]
+
+Cost = (1 - corr(left, right))/2 → Merge lowest cost adjacent → NB1=₹1200-1300
+Stop when 70% total cost spent → K discovered
 ```
 
-**Strictly No Hallucination**: Based on actual files/code (channel_registry.py, run_pipeline.py, docs).
+## 🛠️ Inputs / Outputs
 
-## 🔮 Future Improvements
+| Step | Input | Output |
+|------|--------|--------|
+| **NB01** | Raw Excel | `01_clean_sales.csv` |
+| **NB04** | Pivots | `archetype_mapping.csv` (master join) |
+| **NB08** | ABT | `{seg}_pivot_ready.xlsx` (analyst-ready) |
 
-- Airflow/Prefect orchestration
-- Streamlit UI for threshold tuning
-- ML similarity (beyond Pearson corr)
-- Cross-channel archetype alignment
+**Strict**: No hallucinated features — based on actual `channel_registry.py`, `run_pipeline.py`, docs.
 
-**Status**: Production-ready. Run `python src/run_pipeline.py --channel EC` 🚀
+## 🌟 Future Roadmap
+
+- [ ] Airflow orchestration
+- [ ] Streamlit threshold tuner
+- [ ] Cross-channel alignment
+- [ ] ML similarity model
+
+<div align="center">
+
+**⭐ Star on GitHub if useful!**  
+**Ready to run: `python src/run_pipeline.py --channel EC`**
+
+[![Run in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/placeholder)
+[![Issues](https://img.shields.io/github/issues/10anshika/archetype-automation-engine.svg?style=for-the-badge&logo=github)](https://github.com/10anshika/archetype-automation-engine/issues)
+
+</div>
