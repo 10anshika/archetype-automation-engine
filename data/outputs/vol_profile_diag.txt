@@ -1,0 +1,84 @@
+
+BP_1_Single (GT=10, active=29)
+  Peaks count=7: [(300, np.float64(6.56)), (500, np.float64(13.88)), (1000, np.float64(9.64)), (1200, np.float64(7.69)), (1400, np.float64(3.49)), (2000, np.float64(0.63)), (2400, np.float64(0.32))]
+  Above5% count=8: [(300, np.float64(6.56)), (500, np.float64(13.88)), (600, np.float64(11.02)), (700, np.float64(10.56)), (800, np.float64(8.34)), (1000, np.float64(9.64)), (1100, np.float64(7.26)), (1200, np.float64(7.69))]
+  Above2% count=14: [(300, np.float64(6.56)), (400, np.float64(3.74)), (500, np.float64(13.88)), (600, np.float64(11.02)), (700, np.float64(10.56)), (800, np.float64(8.34)), (900, np.float64(4.9)), (1000, np.float64(9.64)), (1100, np.float64(7.26)), (1200, np.float64(7.69)), (1300, np.float64(2.44)), (1400, np.float64(3.49)), (1500, np.float64(2.97)), (1600, np.float64(2.15))]
+  Top5 by vol: [(500, np.float64(13.88)), (600, np.float64(11.02)), (700, np.float64(10.56)), (1000, np.float64(9.64)), (800, np.float64(8.34))]
+
+BS_1_Single (GT=12, active=18)
+  Peaks count=4: [(1600, np.float64(42.68)), (1900, np.float64(2.25)), (2500, np.float64(4.87)), (4300, np.float64(3.71))]
+  Above5% count=3: [(1400, np.float64(25.39)), (1600, np.float64(42.68)), (1700, np.float64(6.33))]
+  Above2% count=7: [(1400, np.float64(25.39)), (1600, np.float64(42.68)), (1700, np.float64(6.33)), (1900, np.float64(2.25)), (2500, np.float64(4.87)), (3400, np.float64(3.21)), (4300, np.float64(3.71))]
+  Top5 by vol: [(1600, np.float64(42.68)), (1400, np.float64(25.39)), (1700, np.float64(6.33)), (2500, np.float64(4.87)), (4300, np.float64(3.71))]
+
+DF_1_DF (GT=6, active=22)
+  Peaks count=7: [(500, np.float64(66.18)), (700, np.float64(8.05)), (1200, np.float64(4.32)), (1500, np.float64(0.16)), (1900, np.float64(0.05)), (2100, np.float64(0.09)), (3400, np.float64(0.15))]
+  Above5% count=4: [(400, np.float64(6.56)), (500, np.float64(66.18)), (600, np.float64(6.44)), (700, np.float64(8.05))]
+  Above2% count=6: [(400, np.float64(6.56)), (500, np.float64(66.18)), (600, np.float64(6.44)), (700, np.float64(8.05)), (900, np.float64(3.83)), (1200, np.float64(4.32))]
+  Top5 by vol: [(500, np.float64(66.18)), (700, np.float64(8.05)), (400, np.float64(6.56)), (600, np.float64(6.44)), (1200, np.float64(4.32))]
+
+DF_1_DFT (GT=6, active=24)
+  Peaks count=7: [(500, np.float64(13.77)), (800, np.float64(12.84)), (1000, np.float64(18.35)), (1500, np.float64(2.25)), (1900, np.float64(6.29)), (2200, np.float64(0.3)), (2700, np.float64(0.21))]
+  Above5% count=7: [(400, np.float64(11.93)), (500, np.float64(13.77)), (600, np.float64(8.95)), (800, np.float64(12.84)), (900, np.float64(10.14)), (1000, np.float64(18.35)), (1900, np.float64(6.29))]
+  Above2% count=10: [(0, np.float64(3.75)), (400, np.float64(11.93)), (500, np.float64(13.77)), (600, np.float64(8.95)), (800, np.float64(12.84)), (900, np.float64(10.14)), (1000, np.float64(18.35)), (1100, np.float64(2.05)), (1500, np.float64(2.25)), (1900, np.float64(6.29))]
+  Top5 by vol: [(1000, np.float64(18.35)), (500, np.float64(13.77)), (800, np.float64(12.84)), (400, np.float64(11.93)), (900, np.float64(10.14))]
+
+HL_1_CABIN (GT=6, active=49)
+  Peaks count=13: [(900, np.float64(1.48)), (1300, np.float64(28.44)), (1500, np.float64(6.26)), (2000, np.float64(1.65)), (2400, np.float64(0.24)), (2900, np.float64(1.25)), (3100, np.float64(0.19)), (3500, np.float64(0.45)), (3800, np.float64(0.43)), (4100, np.float64(0.33)), (4300, np.float64(0.34)), (4800, np.float64(0.21)), (5100, np.float64(0.08))]
+  Above5% count=4: [(1100, np.float64(17.1)), (1200, np.float64(25.91)), (1300, np.float64(28.44)), (1500, np.float64(6.26))]
+  Above2% count=5: [(1100, np.float64(17.1)), (1200, np.float64(25.91)), (1300, np.float64(28.44)), (1400, np.float64(4.48)), (1500, np.float64(6.26))]
+  Top5 by vol: [(1300, np.float64(28.44)), (1200, np.float64(25.91)), (1100, np.float64(17.1)), (1500, np.float64(6.26)), (1400, np.float64(4.48))]
+
+HL_1_LARGE (GT=10, active=63)
+  Peaks count=22: [(1200, np.float64(0.1)), (1600, np.float64(1.18)), (1900, np.float64(4.65)), (2200, np.float64(2.16)), (2500, np.float64(10.45)), (2800, np.float64(3.99)), (3000, np.float64(1.63)), (3400, np.float64(5.98)), (3600, np.float64(1.88)), (4100, np.float64(8.53)), (4500, np.float64(0.49)), (4800, np.float64(1.47)), (5000, np.float64(1.8)), (5200, np.float64(0.33)), (5400, np.float64(2.46)), (5600, np.float64(3.15)), (5900, np.float64(2.48)), (6100, np.float64(1.95)), (6400, np.float64(0.67)), (7600, np.float64(0.46)), (7800, np.float64(0.78)), (9800, np.float64(0.03))]
+  Above5% count=4: [(2500, np.float64(10.45)), (3400, np.float64(5.98)), (4000, np.float64(7.62)), (4100, np.float64(8.53))]
+  Above2% count=13: [(1900, np.float64(4.65)), (2200, np.float64(2.16)), (2400, np.float64(4.02)), (2500, np.float64(10.45)), (2800, np.float64(3.99)), (3400, np.float64(5.98)), (4000, np.float64(7.62)), (4100, np.float64(8.53)), (4200, np.float64(4.46)), (5400, np.float64(2.46)), (5600, np.float64(3.15)), (5800, np.float64(2.0)), (5900, np.float64(2.48))]
+  Top5 by vol: [(2500, np.float64(10.45)), (4100, np.float64(8.53)), (4000, np.float64(7.62)), (3400, np.float64(5.98)), (1900, np.float64(4.65))]
+
+HL_1_MEDIUM (GT=8, active=54)
+  Peaks count=15: [(900, np.float64(0.06)), (1400, np.float64(1.98)), (1600, np.float64(15.02)), (2000, np.float64(16.23)), (2700, np.float64(4.09)), (3000, np.float64(1.16)), (3200, np.float64(1.02)), (3500, np.float64(6.07)), (3900, np.float64(0.5)), (4200, np.float64(0.71)), (4400, np.float64(0.54)), (4700, np.float64(0.65)), (5300, np.float64(0.6)), (5600, np.float64(0.18)), (6300, np.float64(0.29))]
+  Above5% count=6: [(1600, np.float64(15.02)), (1700, np.float64(11.05)), (1800, np.float64(9.1)), (2000, np.float64(16.23)), (2100, np.float64(10.65)), (3500, np.float64(6.07))]
+  Above2% count=10: [(1600, np.float64(15.02)), (1700, np.float64(11.05)), (1800, np.float64(9.1)), (2000, np.float64(16.23)), (2100, np.float64(10.65)), (2200, np.float64(3.01)), (2600, np.float64(3.08)), (2700, np.float64(4.09)), (2800, np.float64(2.09)), (3500, np.float64(6.07))]
+  Top5 by vol: [(2000, np.float64(16.23)), (1600, np.float64(15.02)), (1700, np.float64(11.05)), (2100, np.float64(10.65)), (1800, np.float64(9.1))]
+
+HL_1_SO2 (GT=5, active=35)
+  Peaks count=10: [(3000, np.float64(35.81)), (3400, np.float64(10.28)), (3700, np.float64(0.59)), (4000, np.float64(2.22)), (4200, np.float64(1.73)), (4500, np.float64(0.94)), (4700, np.float64(0.44)), (5100, np.float64(0.04)), (7000, np.float64(0.11)), (10600, np.float64(0.06))]
+  Above5% count=6: [(2900, np.float64(5.55)), (3000, np.float64(35.81)), (3100, np.float64(19.41)), (3200, np.float64(8.15)), (3300, np.float64(9.05)), (3400, np.float64(10.28))]
+  Above2% count=8: [(2800, np.float64(2.86)), (2900, np.float64(5.55)), (3000, np.float64(35.81)), (3100, np.float64(19.41)), (3200, np.float64(8.15)), (3300, np.float64(9.05)), (3400, np.float64(10.28)), (4000, np.float64(2.22))]
+  Top5 by vol: [(3000, np.float64(35.81)), (3100, np.float64(19.41)), (3400, np.float64(10.28)), (3300, np.float64(9.05)), (3200, np.float64(8.15))]
+
+HL_1_SO3 (GT=6, active=65)
+  Peaks count=19: [(4500, np.float64(12.57)), (4700, np.float64(5.17)), (5000, np.float64(28.7)), (5700, np.float64(6.8)), (6100, np.float64(3.15)), (6500, np.float64(1.78)), (7000, np.float64(1.67)), (7300, np.float64(1.0)), (7600, np.float64(0.35)), (8100, np.float64(0.48)), (8500, np.float64(0.15)), (8800, np.float64(0.08)), (9500, np.float64(0.37)), (13600, np.float64(0.05)), (14500, np.float64(0.2)), (15000, np.float64(0.08)), (15400, np.float64(0.18)), (18600, np.float64(0.05)), (19400, np.float64(0.05))]
+  Above5% count=7: [(4400, np.float64(7.47)), (4500, np.float64(12.57)), (4600, np.float64(5.07)), (4700, np.float64(5.17)), (5000, np.float64(28.7)), (5600, np.float64(5.26)), (5700, np.float64(6.8))]
+  Above2% count=9: [(4400, np.float64(7.47)), (4500, np.float64(12.57)), (4600, np.float64(5.07)), (4700, np.float64(5.17)), (5000, np.float64(28.7)), (5100, np.float64(2.47)), (5600, np.float64(5.26)), (5700, np.float64(6.8)), (6100, np.float64(3.15))]
+  Top5 by vol: [(5000, np.float64(28.7)), (4500, np.float64(12.57)), (4400, np.float64(7.47)), (5700, np.float64(6.8)), (5600, np.float64(5.26))]
+
+SL_1_CABIN (GT=5, active=38)
+  Peaks count=11: [(500, np.float64(1.16)), (800, np.float64(2.13)), (1000, np.float64(16.31)), (1600, np.float64(7.18)), (2000, np.float64(5.21)), (2400, np.float64(5.21)), (2700, np.float64(2.15)), (2900, np.float64(1.76)), (3100, np.float64(1.59)), (3400, np.float64(0.51)), (3600, np.float64(0.55))]
+  Above5% count=7: [(1000, np.float64(16.31)), (1100, np.float64(12.68)), (1200, np.float64(6.06)), (1500, np.float64(6.82)), (1600, np.float64(7.18)), (2000, np.float64(5.21)), (2400, np.float64(5.21))]
+  Above2% count=15: [(0, np.float64(4.44)), (800, np.float64(2.13)), (1000, np.float64(16.31)), (1100, np.float64(12.68)), (1200, np.float64(6.06)), (1500, np.float64(6.82)), (1600, np.float64(7.18)), (1700, np.float64(4.28)), (1800, np.float64(4.04)), (2000, np.float64(5.21)), (2100, np.float64(2.28)), (2400, np.float64(5.21)), (2500, np.float64(2.1)), (2600, np.float64(2.08)), (2700, np.float64(2.15))]
+  Top5 by vol: [(1000, np.float64(16.31)), (1100, np.float64(12.68)), (1600, np.float64(7.18)), (1500, np.float64(6.82)), (1200, np.float64(6.06))]
+
+SL_1_LARGE (GT=5, active=47)
+  Peaks count=14: [(1500, np.float64(0.71)), (1800, np.float64(7.27)), (2200, np.float64(8.58)), (2400, np.float64(12.73)), (2800, np.float64(3.93)), (3000, np.float64(3.4)), (3400, np.float64(5.62)), (3700, np.float64(4.45)), (3900, np.float64(1.12)), (4200, np.float64(3.58)), (4400, np.float64(0.64)), (4700, np.float64(0.42)), (5200, np.float64(0.47)), (5700, np.float64(0.6))]
+  Above5% count=6: [(1800, np.float64(7.27)), (2200, np.float64(8.58)), (2300, np.float64(8.17)), (2400, np.float64(12.73)), (2500, np.float64(5.52)), (3400, np.float64(5.62))]
+  Above2% count=17: [(1800, np.float64(7.27)), (2200, np.float64(8.58)), (2300, np.float64(8.17)), (2400, np.float64(12.73)), (2500, np.float64(5.52)), (2600, np.float64(2.47)), (2800, np.float64(3.93)), (2900, np.float64(2.56)), (3000, np.float64(3.4)), (3100, np.float64(2.07)), (3300, np.float64(4.87)), (3400, np.float64(5.62)), (3500, np.float64(3.87)), (3600, np.float64(4.25)), (3700, np.float64(4.45)), (4100, np.float64(2.49)), (4200, np.float64(3.58))]
+  Top5 by vol: [(2400, np.float64(12.73)), (2200, np.float64(8.58)), (2300, np.float64(8.17)), (1800, np.float64(7.27)), (3400, np.float64(5.62))]
+
+SL_1_MEDIUM (GT=5, active=39)
+  Peaks count=11: [(1200, np.float64(5.39)), (1500, np.float64(4.82)), (1900, np.float64(21.54)), (2300, np.float64(4.72)), (2600, np.float64(3.03)), (2900, np.float64(7.09)), (3100, np.float64(2.68)), (3300, np.float64(0.41)), (3500, np.float64(2.29)), (4400, np.float64(0.71)), (4600, np.float64(0.6))]
+  Above5% count=5: [(1200, np.float64(5.39)), (1900, np.float64(21.54)), (2000, np.float64(11.72)), (2100, np.float64(5.18)), (2900, np.float64(7.09))]
+  Above2% count=15: [(1200, np.float64(5.39)), (1500, np.float64(4.82)), (1600, np.float64(3.11)), (1700, np.float64(2.0)), (1800, np.float64(4.22)), (1900, np.float64(21.54)), (2000, np.float64(11.72)), (2100, np.float64(5.18)), (2200, np.float64(2.18)), (2300, np.float64(4.72)), (2400, np.float64(4.31)), (2600, np.float64(3.03)), (2900, np.float64(7.09)), (3100, np.float64(2.68)), (3500, np.float64(2.29))]
+  Top5 by vol: [(1900, np.float64(21.54)), (2000, np.float64(11.72)), (2900, np.float64(7.09)), (1200, np.float64(5.39)), (2100, np.float64(5.18))]
+
+SL_1_SO2 (GT=4, active=28)
+  Peaks count=8: [(3200, np.float64(11.78)), (4000, np.float64(0.97)), (4700, np.float64(1.11)), (5000, np.float64(1.85)), (6900, np.float64(0.92)), (7700, np.float64(0.94)), (8700, np.float64(0.3)), (9400, np.float64(0.1))]
+  Above5% count=3: [(2900, np.float64(37.66)), (3000, np.float64(25.94)), (3200, np.float64(11.78))]
+  Above2% count=3: [(2900, np.float64(37.66)), (3000, np.float64(25.94)), (3200, np.float64(11.78))]
+  Top5 by vol: [(2900, np.float64(37.66)), (3000, np.float64(25.94)), (3200, np.float64(11.78)), (5000, np.float64(1.85)), (4700, np.float64(1.11))]
+
+SL_1_SO3 (GT=3, active=43)
+  Peaks count=12: [(4800, np.float64(6.23)), (5100, np.float64(6.73)), (5600, np.float64(13.66)), (6200, np.float64(7.12)), (6700, np.float64(2.82)), (7200, np.float64(1.23)), (7500, np.float64(0.97)), (8300, np.float64(0.56)), (9900, np.float64(2.17)), (11200, np.float64(0.92)), (13600, np.float64(1.28)), (14000, np.float64(1.61))]
+  Above5% count=7: [(4800, np.float64(6.23)), (5100, np.float64(6.73)), (5400, np.float64(6.0)), (5500, np.float64(6.77)), (5600, np.float64(13.66)), (5700, np.float64(10.96)), (6200, np.float64(7.12))]
+  Above2% count=11: [(4800, np.float64(6.23)), (5100, np.float64(6.73)), (5300, np.float64(3.68)), (5400, np.float64(6.0)), (5500, np.float64(6.77)), (5600, np.float64(13.66)), (5700, np.float64(10.96)), (6200, np.float64(7.12)), (6700, np.float64(2.82)), (6800, np.float64(2.62)), (9900, np.float64(2.17))]
+  Top5 by vol: [(5600, np.float64(13.66)), (5700, np.float64(10.96)), (6200, np.float64(7.12)), (5500, np.float64(6.77)), (5100, np.float64(6.73))]

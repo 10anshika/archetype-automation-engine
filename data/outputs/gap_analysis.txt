@@ -1,0 +1,56 @@
+BP_1_Single        GT=10 minH=1 active= 38 zones>200=  8 zones>300=  7 zones>500=  6
+BP_1_Single        GT=10 minH=2 active= 30 zones>200=  2 zones>300=  1 zones>500=  1
+BP_1_Single        GT=10 minH=3 active= 29 zones>200=  3 zones>300=  1 zones>500=  1
+BP_1_Single        GT=10 minH=6 active= 25 zones>200=  4 zones>300=  2 zones>500=  2
+BS_1_Single        GT=12 minH=1 active= 34 zones>200=  5 zones>300=  4 zones>500=  2
+BS_1_Single        GT=12 minH=2 active= 23 zones>200=  5 zones>300=  3 zones>500=  1
+BS_1_Single        GT=12 minH=3 active= 18 zones>200=  5 zones>300=  4 zones>500=  2
+BS_1_Single        GT=12 minH=6 active=  6 zones>200=  3 zones>300=  3 zones>500=  3
+DF_1_DF            GT= 6 minH=1 active= 35 zones>200= 12 zones>300= 10 zones>500=  4
+DF_1_DF            GT= 6 minH=2 active= 27 zones>200=  6 zones>300=  6 zones>500=  6
+DF_1_DF            GT= 6 minH=3 active= 22 zones>200=  6 zones>300=  5 zones>500=  5
+DF_1_DF            GT= 6 minH=6 active= 15 zones>200=  3 zones>300=  3 zones>500=  2
+DF_1_DFT           GT= 6 minH=1 active= 34 zones>200=  4 zones>300=  4 zones>500=  3
+DF_1_DFT           GT= 6 minH=2 active= 27 zones>200=  1 zones>300=  1 zones>500=  1
+DF_1_DFT           GT= 6 minH=3 active= 24 zones>200=  2 zones>300=  2 zones>500=  1
+DF_1_DFT           GT= 6 minH=6 active= 18 zones>200=  3 zones>300=  3 zones>500=  2
+HL_1_CABIN         GT= 6 minH=1 active= 57 zones>200=  6 zones>300=  3 zones>500=  3
+HL_1_CABIN         GT= 6 minH=2 active= 50 zones>200=  3 zones>300=  3 zones>500=  2
+HL_1_CABIN         GT= 6 minH=3 active= 49 zones>200=  3 zones>300=  3 zones>500=  2
+HL_1_CABIN         GT= 6 minH=6 active= 44 zones>200=  2 zones>300=  2 zones>500=  2
+HL_1_LARGE         GT=10 minH=1 active= 78 zones>200=  7 zones>300=  4 zones>500=  4
+HL_1_LARGE         GT=10 minH=2 active= 71 zones>200=  6 zones>300=  3 zones>500=  3
+HL_1_LARGE         GT=10 minH=3 active= 63 zones>200=  5 zones>300=  5 zones>500=  4
+HL_1_LARGE         GT=10 minH=6 active= 53 zones>200=  2 zones>300=  2 zones>500=  2
+HL_1_MEDIUM        GT= 8 minH=1 active= 76 zones>200=  5 zones>300=  4 zones>500=  2
+HL_1_MEDIUM        GT= 8 minH=2 active= 56 zones>200=  3 zones>300=  2 zones>500=  2
+HL_1_MEDIUM        GT= 8 minH=3 active= 54 zones>200=  3 zones>300=  3 zones>500=  2
+HL_1_MEDIUM        GT= 8 minH=6 active= 50 zones>200=  2 zones>300=  2 zones>500=  2
+HL_1_SO2           GT= 5 minH=1 active= 63 zones>200= 13 zones>300=  8 zones>500=  7
+HL_1_SO2           GT= 5 minH=2 active= 46 zones>200=  9 zones>300=  6 zones>500=  6
+HL_1_SO2           GT= 5 minH=3 active= 35 zones>200=  7 zones>300=  5 zones>500=  4
+HL_1_SO2           GT= 5 minH=6 active= 16 zones>200=  4 zones>300=  3 zones>500=  3
+HL_1_SO3           GT= 6 minH=1 active=131 zones>200= 21 zones>300= 15 zones>500=  9
+HL_1_SO3           GT= 6 minH=2 active= 94 zones>200= 19 zones>300= 13 zones>500=  7
+HL_1_SO3           GT= 6 minH=3 active= 65 zones>200= 13 zones>300= 11 zones>500=  6
+HL_1_SO3           GT= 6 minH=6 active= 27 zones>200=  7 zones>300=  4 zones>500=  4
+SL_1_CABIN         GT= 5 minH=1 active= 50 zones>200=  7 zones>300=  6 zones>500=  3
+SL_1_CABIN         GT= 5 minH=2 active= 43 zones>200=  6 zones>300=  6 zones>500=  5
+SL_1_CABIN         GT= 5 minH=3 active= 38 zones>200=  3 zones>300=  3 zones>500=  2
+SL_1_CABIN         GT= 5 minH=6 active= 31 zones>200=  2 zones>300=  2 zones>500=  2
+SL_1_LARGE         GT= 5 minH=1 active= 57 zones>200= 10 zones>300=  7 zones>500=  6
+SL_1_LARGE         GT= 5 minH=2 active= 51 zones>200=  5 zones>300=  4 zones>500=  4
+SL_1_LARGE         GT= 5 minH=3 active= 47 zones>200=  3 zones>300=  2 zones>500=  2
+SL_1_LARGE         GT= 5 minH=6 active= 36 zones>200=  3 zones>300=  3 zones>500=  1
+SL_1_MEDIUM        GT= 5 minH=1 active= 50 zones>200=  5 zones>300=  5 zones>500=  2
+SL_1_MEDIUM        GT= 5 minH=2 active= 43 zones>200=  6 zones>300=  5 zones>500=  4
+SL_1_MEDIUM        GT= 5 minH=3 active= 39 zones>200=  5 zones>300=  4 zones>500=  2
+SL_1_MEDIUM        GT= 5 minH=6 active= 31 zones>200=  2 zones>300=  2 zones>500=  1
+SL_1_SO2           GT= 4 minH=1 active= 51 zones>200= 12 zones>300=  8 zones>500=  6
+SL_1_SO2           GT= 4 minH=2 active= 35 zones>200=  9 zones>300=  7 zones>500=  4
+SL_1_SO2           GT= 4 minH=3 active= 28 zones>200= 10 zones>300=  7 zones>500=  4
+SL_1_SO2           GT= 4 minH=6 active=  4 zones>200=  3 zones>300=  3 zones>500=  3
+SL_1_SO3           GT= 3 minH=1 active= 84 zones>200= 12 zones>300=  8 zones>500=  8
+SL_1_SO3           GT= 3 minH=2 active= 61 zones>200= 13 zones>300=  9 zones>500=  5
+SL_1_SO3           GT= 3 minH=3 active= 43 zones>200= 12 zones>300=  8 zones>500=  6
+SL_1_SO3           GT= 3 minH=6 active= 10 zones>200=  7 zones>300=  4 zones>500=  2
