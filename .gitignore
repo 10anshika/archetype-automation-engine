@@ -5,7 +5,10 @@ __pycache__/
 venv/
 
 *.csv
-*.xlsx
+*.csv
+raw/
+outputs/
+
 data/
 data_outputs/
 
