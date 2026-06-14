@@ -1,160 +1,174 @@
-<div align="center">
+# Archetype Automation Engine
 
-# 🚀 Archetype Automation Engine
+A production-oriented analytics pipeline for converting raw luggage, backpack, and accessories sales data into stable price archetypes for demand forecasting.
 
-[![Status](https://img.shields.io/badge/status-production-green.svg?style=for-the-badge&logo=gitbook)](https://github.com/10anshika/archetype-automation-engine/actions)
-[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=for-the-badge&logo=python)](https://www.python.org/)
-[![License](https://img.shields.io/github/license/10anshika/archetype-automation-engine.svg?style=for-the-badge)](LICENSE)
+The engine takes real multi-channel sales workbooks, cleans and buckets Average Selling Price (ASP), learns adjacent price bands with similar monthly sales-share behavior, validates the generated bands against mapped business references, and exports analyst-ready tables for downstream planning and forecasting.
 
-**Automated archetype modeling for retail price segmentation.** Groups ₹100 price buckets into data-driven **New Buckets (NB1, NB2...)** using **Auto-K clustering**. Handles **157 segments** across **EC/TT/MT channels** in **minutes** (not weeks).
+## Why This Project Matters
 
-![Pipeline](https://i.imgur.com/placeholder-pipeline.png)
-*Automated pipeline: Raw Excel → Clean → Buckets → Pivots → **Auto-K** → Reports*
+Demand planning for backpacks and suitcases is difficult because sales are affected by seasonality, travel cycles, promotions, short product lifecycles, channel behavior, and frequent price movement. A raw SKU or price point is often too granular for reliable forecasting.
 
-</div>
+This project solves that by creating **archetypes**: standardized price ranges that group nearby price buckets with similar demand patterns. These archetypes can then be used as a more stable forecasting level for existing products, new SKUs, and channel-level demand planning.
 
-## 🎯 What It Does
+Instead of manually grouping price bands in Excel, the pipeline produces reproducible, data-driven archetype mappings across divisions, portals, sizes, and channels.
 
-**Problem**: Manual Excel bucketing is inconsistent across analysts, unscalable (157 segments), fragile to data changes.
+## Dataset
 
-**Solution**: **Greedy adjacent clustering** discovers optimal archetypes automatically:
-- Similarity: Pearson correlation of monthly sales-share trends
-- Constraint: Only adjacent ₹100 buckets merge → valid price ranges
-- Auto-K: Stops at 70% cumulative dissimilarity threshold
+The repository includes a complete real-world-style dataset under [`data/raw`](data/raw):
 
-**Impact**: Standardized NB labels enable YoY price band comparisons.
+| Channel | File | Rows | Portals | Segment combinations | Years |
+| --- | --- | ---: | ---: | ---: | --- |
+| EC | `ec_data.xlsx` | 127,319 | 7 | 93 | 2023-2025 |
+| TT | `manual_validation.xlsx` | 61,390 | 1 | 14 | 2023-2025 |
+| MT | `mt_data.xlsx` | 106,235 | 4 | 51 | 2023-2025 |
 
-| Channel | Segments | Portals | Raw File |
-|---------|----------|---------|----------|
-| 🛒 **EC** | 92 | Amazon, Flipkart... | `ec_data.xlsx` |
-| 🏪 **TT** | 14 | Integer IDs | `manual_validation.xlsx` |
-| 🏬 **MT** | 45/51 | Dmart, Reliance... | `mt_data.xlsx` |
+Across the raw files, the data covers five divisions: `HL`, `SL`, `BP`, `BS`, and `DF`, with sizes such as `CABIN`, `LARGE`, `MEDIUM`, `SO2`, `SO3`, `Single`, `DF`, and `DFT`.
 
-## 🏗️ Architecture Flow
+The pipeline currently has executable channel configuration for `EC` and `TT` in [`src/channel_registry.py`](src/channel_registry.py). MT data is present in the repo and documented, but should be added to the registry before running it through the same automated path.
 
-```mermaid
-graph TD
-    A[📊 Raw Excel<br/>ec_data.xlsx] --> B[NB01 Clean<br/>01_clean_sales.csv]
-    B --> C[NB02 ASP Buckets<br/>₹100 + tail ₹500<br/>02_fine_bucket_ts.csv]
-    C --> D[NB03 Pivots<br/>% share matrices<br/>03_segment_pivots.pkl]
-    D --> E[NB04 **Auto-K**<br/>threshold overrides<br/>archetype_mapping.csv]
-    E --> F[NB05 Verify Keys]
-    F --> G[NB06 Validate GT]
-    E --> H[NB07 ABT<br/>07_analytical_base_table.csv]
-    H --> I[NB08 Reports<br/>pivot_ready.xlsx + PNGs]
-    
-    J[NB09 Diagnostic<br/>threshold sensitivity] -.->|Tune| E
-    K[NB10 Detail<br/>flagged segments] -.->|Review| E
+## What The Engine Produces
+
+For each configured channel, the notebooks generate:
+
+- Cleaned channel-specific sales data
+- Smoothed ASP buckets
+- Monthly price-bucket trend pivots
+- Auto-generated archetype mappings
+- Archetype keys and price ranges
+- Validation summaries against mapped reference buckets
+- Analytical base tables enriched with archetype labels
+- Monthly archetype rollups for Excel pivots, dashboards, or forecasting models
+- Diagnostic charts and CSVs for reviewing segment behavior
+
+Example generated outputs live under [`notebooks/data/outputs`](notebooks/data/outputs).
+
+## Pipeline Overview
+
+```text
+Raw Excel data
+  -> 01_exploration.ipynb
+     Clean strings, filter years/channel, create sale_date
+
+  -> 02_asp_bucketing.ipynb
+     Aggregate sales, calculate ASP, smooth ASP, assign fine price buckets
+
+  -> 03_trend_pivot.ipynb
+     Build monthly sales-share matrices per Division x Portal x Size segment
+
+  -> 04_clustering.ipynb
+     Cluster adjacent price buckets by demand-trend similarity
+
+  -> 05_archetype_keys.ipynb
+     Build and verify business-readable archetype keys
+
+  -> 06_validation.ipynb
+     Compare generated archetypes with mapped validation buckets
+
+  -> 07_analytical_base_table.ipynb
+     Join archetypes back to transaction-level data and monthly rollups
 ```
 
-## ✨ Key Features
+## Core Methodology
 
-<div align="center">
+The engine is built around a practical demand-planning idea: nearby price points should belong together only when they behave similarly over time.
 
-| 🎯 **Auto-Discovers K** | 📈 **Trend Similarity** | 🔒 **Contiguous Ranges** |
-|------------------------|-------------------------|--------------------------|
-| Optimal archetypes per segment | Pearson corr of % shares | Adjacent buckets only |
-| K=2-10 enforced | Handles seasonality | No ₹1200+₹2000 skips |
+Key techniques:
 
-</div>
+- **ASP smoothing:** uses a rolling median to reduce promotion and month-level pricing noise.
+- **Fine bucketing:** maps ASP into standard price buckets, usually in 100-unit intervals.
+- **Tail bucketing:** uses wider 500-unit buckets for sparse high-price ranges in EC.
+- **Monthly share pivots:** represents each price bucket by its monthly percentage contribution to segment volume.
+- **Adjacent clustering:** groups only neighboring price buckets, preserving interpretable price ranges.
+- **Volume cleanup:** prevents tiny low-volume clusters from becoming noisy standalone archetypes.
+- **Validation layer:** compares generated buckets to mapped business references where available.
 
-- **Tail Bucketing**: ₹500 above thresholds (HL>₹5K)
-- **Overrides**: 30 segments @ 0.60 (NB09-driven)
-- **Validation**: 85-95% vs ground truth
-- **papermill**: `run_pipeline.py --channel EC`
+The shared implementation helpers are in [`src/pipeline.py`](src/pipeline.py) and [`src/clustering.py`](src/clustering.py).
 
-## 🚀 Quick Start
+## Repository Structure
+
+```text
+.
++-- data/
+|   +-- raw/                 # Source Excel workbooks
+|   +-- outputs/             # Diagnostics and supporting outputs
++-- notebooks/               # End-to-end notebook pipeline
+|   +-- data/outputs/        # Generated channel outputs
++-- src/
+|   +-- channel_registry.py  # Channel-specific configuration
+|   +-- config.py            # Notebook-facing config exports
+|   +-- pipeline.py          # ASP bucket helper
+|   +-- clustering.py        # Adjacent clustering helpers
++-- archetype_engine_docs.md
++-- archetype_engine_operational_guide(how to use in detail).md
++-- README.md
+```
+
+## Setup
+
+Use Python 3.10 or newer.
 
 ```bash
-git clone https://github.com/10anshika/archetype-automation-engine
-cd archetype_automation_engine/src
-
-# Install (no requirements.txt — minimal deps)
-pip install pandas numpy scipy scikit-learn papermill openpyxl matplotlib seaborn jupyter
-
-# Run EC (15min)
-python run_pipeline.py --channel EC
-
-# Outputs: notebooks/data/outputs/EC/
+python -m venv .venv
+.venv\Scripts\activate
+pip install pandas numpy scipy scikit-learn matplotlib seaborn openpyxl jupyter nbconvert
 ```
 
-**Resume**: `--start-from 04` | **Single**: `--only 08` | **Diag**: `run_diagnostic.py`
+On macOS or Linux:
 
-## 📁 Structure
-
-```
-.
-├── data/raw/           # ← Input Excel here
-│   ├── ec_data.xlsx
-│   └── mt_data.xlsx
-├── notebooks/          # 10-step Jupyter pipeline
-│   ├── 01_exploration.ipynb
-│   ├── 04_clustering.ipynb  # Core Auto-K
-│   └── 08_reporting.ipynb
-├── src/                # Orchestrator + utils
-│   ├── channel_registry.py  # All configs
-│   ├── run_pipeline.py      # Entry point
-│   └── pipeline.py
-└── outputs/            # Generated (gitignored)
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install pandas numpy scipy scikit-learn matplotlib seaborn openpyxl jupyter nbconvert
 ```
 
-## ⚙️ Config Reference
+## Running The Pipeline
 
-**`src/channel_registry.py`** — Single source of truth:
+Open the notebooks from the [`notebooks`](notebooks) directory and run them in order:
 
-| Param | EC/TT/MT | Purpose |
-|-------|----------|---------|
-| `max_k` | 10/8 | Archetypes cap |
-| `min_history_months` | 6/3 | Active bucket filter |
-| `trend_similarity_threshold` | 0.70 | Merge stop % |
-| `segment_threshold_overrides` | 30 segs @ 0.60 | Complex segments |
+1. `01_exploration.ipynb`
+2. `02_asp_bucketing.ipynb`
+3. `03_trend_pivot.ipynb`
+4. `04_clustering.ipynb`
+5. `05_archetype_keys (1).ipynb`
+6. `06_validation.ipynb`
+7. `07_analytical_base_table (2).ipynb`
 
-## 📊 Example Output
+The notebooks currently set:
 
-**HL_Flipkart_LARGE** (`per_portal/HL_Flipkart_LARGE_pivot_ready.xlsx`):
-
-| archetype_key | 2024-01 | 2024-02 | ... | TOTAL_QTY | VOL_% |
-|---------------|---------|---------|-----|-----------|-------|
-| AmazonHL_LARGE1 | 1200 | 1150 | ... | 45k | 22% |
-| AmazonHL_LARGE2 | 2850 | 2920 | ... | 78k | 38% |
-
-**PNG Charts**: Volume bars + YoY trends + % share lines per archetype.
-
-## 🔍 How Auto-K Works
-
-```
-Active Buckets (min_history_months=6, vol>0.1%):
-₹1200: [8.3, 9.1, 7.8, 10.2]  % shares over 4mo
-₹1300: [12.4, 13.0, 11.9, 14.1]
-₹2000: [18.2, 17.6, 19.4, 17.8]
-
-Cost = (1 - corr(left, right))/2 → Merge lowest cost adjacent → NB1=₹1200-1300
-Stop when 70% total cost spent → K discovered
+```python
+os.environ["CHANNEL"] = "EC"
 ```
 
-## 🛠️ Inputs / Outputs
+Change this to `TT` before importing `config` if you want to run the Traditional Trade pipeline.
 
-| Step | Input | Output |
-|------|--------|--------|
-| **NB01** | Raw Excel | `01_clean_sales.csv` |
-| **NB04** | Pivots | `archetype_mapping.csv` (master join) |
-| **NB08** | ABT | `{seg}_pivot_ready.xlsx` (analyst-ready) |
+Outputs are written to:
 
-**Strict**: No hallucinated features — based on actual `channel_registry.py`, `run_pipeline.py`, docs.
+```text
+notebooks/data/outputs/{CHANNEL}/
+```
 
-## 🌟 Future Roadmap
+## Important Outputs
 
-- [ ] Airflow orchestration
-- [ ] Streamlit threshold tuner
-- [ ] Cross-channel alignment
-- [ ] ML similarity model
+| Output | Purpose |
+| --- | --- |
+| `01_clean_sales.csv` | Cleaned and filtered channel sales |
+| `02_fine_bucket_ts.csv` | Monthly quantity by segment and ASP bucket |
+| `03_segment_pivots.pkl` | Trend matrices used for clustering |
+| `archetype_mapping.csv` | Fine bucket to New Bucket mapping |
+| `archetype_keys.csv` | One row per archetype with price range and volume |
+| `06_validation_summary.csv` | Segment-level validation results |
+| `06_validation_detail.csv` | Bucket-level validation detail |
+| `07_analytical_base_table.csv` | Sales data enriched with archetype labels |
+| `07_archetype_monthly.csv` | Monthly rollup by archetype |
 
-<div align="center">
+## Documentation
 
-**⭐ Star on GitHub if useful!**  
-**Ready to run: `python src/run_pipeline.py --channel EC`**
+For a deeper technical explanation, see:
 
-[![Run in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/placeholder)
-[![Issues](https://img.shields.io/github/issues/10anshika/archetype-automation-engine.svg?style=for-the-badge&logo=github)](https://github.com/10anshika/archetype-automation-engine/issues)
+- [`archetype_engine_docs.md`](archetype_engine_docs.md) for algorithm and architecture details
+- [`archetype_engine_operational_guide(how to use in detail).md`](archetype_engine_operational_guide%28how%20to%20use%20in%20detail%29.md) for operational usage notes
+- [`Archetype_Engine_Project_Report.docx`](Archetype_Engine_Project_Report.docx) for project-report format documentation
 
-</div>
+## Current Status
+
+This is a strong notebook-first analytics project with real data, reproducible intermediate outputs, validation artifacts, and reusable source modules. The most useful next engineering step would be to package the notebook flow behind a single CLI runner and add MT to `channel_registry.py`, so all three included channels can be executed consistently from one command.
