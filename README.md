@@ -1,11 +1,10 @@
 # 🎬 Archetype Automation Engine
-## *The Algorithm That Left No Crumbs* 🍽️
 
 > **Watch 295K sales records transform into the sickest price archetypes ever** 👀
 
 ---
 
-## 🎯 The Instant Pitch
+## 🎯 The Pitch
 
 You have **295,000+ sales transactions** scattered across channels, seasons, and price points. Traditional forecasting breaks because price points dance independently. 
 
